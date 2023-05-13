@@ -1,20 +1,31 @@
 plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
+    alias libs.plugins.android.application
+    alias libs.plugins.kotlin.android
+    alias libs.plugins.hilt
+    alias libs.plugins.ksp
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
-    namespace 'com.gmail.cristiandeives.gamelist'
+    namespace 'com.gmail.cristiandeives.myswitch'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.gmail.cristiandeives.gamelist"
+        applicationId "com.gmail.cristiandeives.myswitch"
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName '0.1'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        ksp {
+            arg('room.schemaLocation', "$projectDir/schemas".toString())
+        }
     }
 
     buildTypes {
@@ -22,22 +33,75 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        benchmark {
+            signingConfig signingConfigs.debug
+            matchingFallbacks = ['release']
+            debuggable false
+        }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.6'
+    }
+
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 }
 
 dependencies {
+    def composeBom = platform(libs.androidx.compose.bom)
+    implementation(composeBom)
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation libs.accompanist.systemuicontroller
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.graphics
+    implementation libs.androidx.compose.ui.tooling.preview
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.hilt.navigation.compose
+    implementation libs.androidx.lifecycle.runtime.compose
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.navigation.compose
+    implementation libs.androidx.profileinstaller
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.room.runtime
+    implementation libs.coil.compose
+    implementation libs.hilt.android
+    implementation libs.material
+
+    kapt libs.hilt.compiler
+    ksp libs.androidx.room.compiler
+
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.core
+    testImplementation libs.mockito.kotlin
+
+    androidTestImplementation libs.androidx.test.espresso.core
+    androidTestImplementation libs.androidx.test.ext.junit
+
+    androidTestImplementation(composeBom)
+    androidTestImplementation libs.androidx.compose.ui.test.junit4
+
+    debugImplementation libs.androidx.compose.ui.test.manifest
+    debugImplementation libs.androidx.compose.ui.tooling
 }

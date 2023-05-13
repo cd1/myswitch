@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">My Switch</string>
+
+    <!-- List games -->
+    <string name="list_games_title">Meus jogos</string>
+    <string name="list_games_empty_message">Você não adicionou nenhum jogo ainda.</string>
+    <string name="list_games_error">Deu um erro na hora de ler os seus jogos. Tente de novo mais tarde. Pode dar certo. Ou não.</string>
+</resources>
