@@ -36,7 +36,7 @@ sealed interface SearchResultState : Parcelable {
     object Loading : SearchResultState
 
     @Parcelize
-    data class Content(
+    data class Data(
         val results: List<GameUiState> = emptyList(),
     ) : SearchResultState
 

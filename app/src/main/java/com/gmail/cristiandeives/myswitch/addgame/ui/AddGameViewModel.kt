@@ -93,7 +93,7 @@ class AddGameViewModel @Inject constructor(
             val updatedState = addGameRepository.searchGames(searchQuery).fold(
                 ifRight = { games ->
                     uiState.value.copy(
-                        searchResultState = SearchResultState.Content(games.map { it.toUi() }),
+                        searchResultState = SearchResultState.Data(games.map { it.toUi() }),
                     )
                 },
                 ifLeft = {

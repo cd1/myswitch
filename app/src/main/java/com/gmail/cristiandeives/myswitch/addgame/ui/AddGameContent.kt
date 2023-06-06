@@ -116,7 +116,7 @@ fun AddGameContent(
                     }
                 }
 
-                is SearchResultState.Content -> {
+                is SearchResultState.Data -> {
                     if (searchResultState.results.isNotEmpty()) {
                         LazyColumn {
                             items(
@@ -273,7 +273,7 @@ private fun NoResultsPreview() {
         AddGameContent(
             searchQuery = "call of duty",
             searchBarState = SearchBarState.Inactive,
-            searchResultState = SearchResultState.Content(),
+            searchResultState = SearchResultState.Data(),
             onSearchQueryChange = {},
             onSearchBarActiveChange = {},
             onRecentGameSearchClick = {},
@@ -292,7 +292,7 @@ private fun ResultsPreview() {
         AddGameContent(
             searchQuery = "zelda",
             searchBarState = SearchBarState.Inactive,
-            searchResultState = SearchResultState.Content(
+            searchResultState = SearchResultState.Data(
                 results = listOf(
                     GameUiState(0, "The Legend of Zelda: Breath of the Wild", ""),
                     GameUiState(1, "The Legend of Zelda: Link's Awakening", ""),
