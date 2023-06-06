@@ -5,6 +5,8 @@ plugins {
     alias libs.plugins.ksp
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'org.jetbrains.kotlin.plugin.serialization' version libs.versions.kotlin
+    id 'com.google.protobuf' version '0.9.3'
 }
 
 android {
@@ -42,6 +44,7 @@ android {
     }
 
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -69,6 +72,7 @@ dependencies {
     def composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
 
+    implementation libs.accompanist.navigation.animation
     implementation libs.accompanist.systemuicontroller
     implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
@@ -77,6 +81,7 @@ dependencies {
     implementation libs.androidx.compose.ui.graphics
     implementation libs.androidx.compose.ui.tooling.preview
     implementation libs.androidx.core.ktx
+    implementation libs.androidx.datastore
     implementation libs.androidx.hilt.navigation.compose
     implementation libs.androidx.lifecycle.runtime.compose
     implementation libs.androidx.lifecycle.runtime.ktx
@@ -84,9 +89,16 @@ dependencies {
     implementation libs.androidx.profileinstaller
     implementation libs.androidx.room.ktx
     implementation libs.androidx.room.runtime
+    implementation libs.arrow.core
+    implementation libs.arrow.fx.coroutines
     implementation libs.coil.compose
+    implementation libs.kotlinx.serialization.json
     implementation libs.hilt.android
     implementation libs.material
+    implementation libs.protobuf.javalite
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.kotlinx.serialization
+    implementation libs.retrofit.converter.scalars
 
     kapt libs.hilt.compiler
     ksp libs.androidx.room.compiler
@@ -104,4 +116,22 @@ dependencies {
 
     debugImplementation libs.androidx.compose.ui.test.manifest
     debugImplementation libs.androidx.compose.ui.tooling
+
+    coreLibraryDesugaring libs.android.tools.desugar.jdk
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.14.0"
+    }
+
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
 }

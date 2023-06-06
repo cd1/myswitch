@@ -2,8 +2,20 @@
 <resources>
     <string name="app_name">My Switch</string>
 
+    <string name="navigate_back_content_description">Go back to the previous screen</string>
+
     <!-- List games -->
     <string name="list_games_title">My games</string>
     <string name="list_games_empty_message">You haven\'t added any games yet.</string>
     <string name="list_games_error">There was an error when trying to read your games. Try again later. It may work. Or not.</string>
+    <string name="add_game_content_description">Add a new game</string>
+
+    <!-- Add game -->
+    <string name="add_game_title">Add game</string>
+    <string name="add_game_type_name_placeholder">Type a game name</string>
+    <string name="add_game_clear_query_content_description">Clear current search query</string>
+    <string name="add_game_remove_search_query_content_description">Remove this search query from the history</string>
+    <string name="add_game_searching">Searching…</string>
+    <string name="add_game_search_no_games_found">No games found when searching for \'%s\'.</string>
+    <string name="add_game_search_error">There was an error when trying to search for games. Try again later. It may work. Or not.</string>
 </resources>

@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Game(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Long,
 
     val title: String,
-    val imageUrl: String,
+    val imageUrl: String?,
 )

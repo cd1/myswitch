@@ -7,8 +7,10 @@ import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.onAllNodesWithTag
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import com.gmail.cristiandeives.myswitch.R
 
 class ListGamesScreenRobot(private val rule: AndroidComposeTestRule<*, ComponentActivity>) {
@@ -35,6 +37,10 @@ class ListGamesScreenRobot(private val rule: AndroidComposeTestRule<*, Component
         onDataContent().assert(hasScrollAction())
     }
 
+    fun clickAddGameButton() {
+        onAddGameButton().performClick()
+    }
+
     private fun onLoadingIndicator() =
         rule.onNodeWithTag(ListGamesLoadingContentTestTag)
 
@@ -49,4 +55,7 @@ class ListGamesScreenRobot(private val rule: AndroidComposeTestRule<*, Component
 
     private fun onGameItem(index: Int) =
         rule.onAllNodesWithTag(ListGamesGameItemTestTag)[index]
+
+    private fun onAddGameButton() =
+        rule.onNodeWithContentDescription(context.getString(R.string.add_game_content_description))
 }

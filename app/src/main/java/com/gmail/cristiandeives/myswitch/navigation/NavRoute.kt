@@ -4,4 +4,5 @@ enum class NavRoute(
     val route: String,
 ) {
     ListGames("list-games"),
+    AddGame("add-game"),
 }

@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.filters.LargeTest
 import com.gmail.cristiandeives.myswitch.common.ui.theme.MySwitchTheme
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
@@ -61,10 +62,30 @@ class ListGamesScreenTest {
         robot.assertDataContentIsScrollable()
     }
 
-    private fun launchScreen(uiState: ListGamesUiState) {
+    @Test
+    fun data_clickAddGameButton_addGameButtonIsClicked() {
+        var addGameButtonClicked = false
+
+        launchScreen(
+            uiState = ListGamesUiState.Data(),
+            onAddGameClick = { addGameButtonClicked = true },
+        )
+
+        robot.clickAddGameButton()
+
+        assertTrue(addGameButtonClicked)
+    }
+
+    private fun launchScreen(
+        uiState: ListGamesUiState,
+        onAddGameClick: () -> Unit = {},
+    ) {
         rule.setContent {
             MySwitchTheme {
-                ListGamesScreen(uiState)
+                ListGamesScreen(
+                    uiState = uiState,
+                    onAddGameClick = onAddGameClick,
+                )
             }
         }
     }

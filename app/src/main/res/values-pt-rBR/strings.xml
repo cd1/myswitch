@@ -2,8 +2,20 @@
 <resources>
     <string name="app_name">My Switch</string>
 
+    <string name="navigate_back_content_description">Voltar para a tela anterior</string>
+
     <!-- List games -->
     <string name="list_games_title">Meus jogos</string>
     <string name="list_games_empty_message">Você não adicionou nenhum jogo ainda.</string>
     <string name="list_games_error">Deu um erro na hora de ler os seus jogos. Tente de novo mais tarde. Pode dar certo. Ou não.</string>
+    <string name="add_game_content_description">Adicionar novo jogo</string>
+
+    <!-- Add game -->
+    <string name="add_game_title">Adicionar jogo</string>
+    <string name="add_game_type_name_placeholder">Digite o nome de um jogo</string>
+    <string name="add_game_clear_query_content_description">Limpar o texto de pesquisa atual</string>
+    <string name="add_game_remove_search_query_content_description">Remover esse texto de pesquisa do histórico</string>
+    <string name="add_game_searching">Pesquisando…</string>
+    <string name="add_game_search_no_games_found">Nenhum jogo encontrado ao pesquisar por \'%s\'.</string>
+    <string name="add_game_search_error">Deu um erro na hora de pesquisar os jogos. Tente de novo mais tarde. Pode dar certo. Ou não.</string>
 </resources>

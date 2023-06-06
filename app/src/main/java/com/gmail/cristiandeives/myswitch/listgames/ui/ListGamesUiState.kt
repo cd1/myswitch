@@ -22,5 +22,5 @@ sealed interface ListGamesUiState : Parcelable {
 @Parcelize
 data class GameUiState(
     val title: String,
-    val imageUrl: String,
+    val imageUrl: String?,
 ) : Parcelable
