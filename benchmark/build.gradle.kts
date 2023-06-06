@@ -44,6 +44,8 @@ dependencies {
     implementation(libs.androidx.test.ext.junit)
     implementation(libs.androidx.test.espresso.core)
     implementation(libs.androidx.test.uiautomator)
+
+    coreLibraryDesugaring(libs.android.tools.desugar.jdk)
 }
 
 androidComponents {

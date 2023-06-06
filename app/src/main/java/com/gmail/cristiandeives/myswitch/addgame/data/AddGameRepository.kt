@@ -4,7 +4,7 @@ import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
 import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearch
-import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchDao
+import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchesDao
 import com.gmail.cristiandeives.myswitch.addgame.data.db.SimpleRecentGameSearch as DbSimpleRecentGameSearch
 import com.gmail.cristiandeives.myswitch.common.data.Game
 import com.gmail.cristiandeives.myswitch.common.data.network.AccessTokenRepository
@@ -21,17 +21,17 @@ import javax.inject.Inject
 
 class AddGameRepository @Inject constructor(
     private val accessTokenRepository: AccessTokenRepository,
-    private val recentGameSearchDao: RecentGameSearchDao,
+    private val recentGameSearchesDao: RecentGameSearchesDao,
     private val igdbService: IgdbService,
     private val ioDispatcher: CoroutineDispatcher,
 ) {
     fun getRecentGameSearches(): Flow<List<SimpleRecentGameSearch>> =
-        recentGameSearchDao.readAll().map { allGameSearches -> allGameSearches.map { it.toData() } }
+        recentGameSearchesDao.readAll().map { allGameSearches -> allGameSearches.map { it.toData() } }
 
     suspend fun addRecentGameSearch(query: String): Either<Unit, Unit> =
         withContext(ioDispatcher) {
             try {
-                val existingRecentGameSearchId = recentGameSearchDao.readIdByQuery(query)
+                val existingRecentGameSearchId = recentGameSearchesDao.readIdByQuery(query)
                 val id = existingRecentGameSearchId ?: 0
                 val updatedRecentGameSearch = RecentGameSearch(
                     id = id,
@@ -39,7 +39,7 @@ class AddGameRepository @Inject constructor(
                     lastUpdated = OffsetDateTime.now().toEpochSecond(),
                 )
 
-                recentGameSearchDao.upsert(updatedRecentGameSearch)
+                recentGameSearchesDao.upsert(updatedRecentGameSearch)
 
                 Unit.right()
             } catch (ex: Exception) {
@@ -50,7 +50,7 @@ class AddGameRepository @Inject constructor(
     suspend fun removeRecentGameSearchById(searchId: Long): Either<Unit, Unit> =
         withContext(ioDispatcher) {
             try {
-                recentGameSearchDao.deleteById(searchId)
+                recentGameSearchesDao.deleteById(searchId)
 
                 Unit.right()
             } catch (ex: Exception) {

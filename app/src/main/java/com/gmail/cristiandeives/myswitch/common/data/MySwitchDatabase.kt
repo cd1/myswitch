@@ -3,7 +3,7 @@ package com.gmail.cristiandeives.myswitch.common.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearch
-import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchDao
+import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchesDao
 
 @Database(
     entities = [
@@ -13,6 +13,6 @@ import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchDao
     version = 1,
 )
 abstract class MySwitchDatabase : RoomDatabase() {
-    abstract fun gameDao(): GameDao
-    abstract fun recentGameSearchDao(): RecentGameSearchDao
+    abstract fun gamesDao(): GamesDao
+    abstract fun recentGameSearchesDao(): RecentGameSearchesDao
 }

@@ -5,7 +5,7 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface GameDao {
+interface GamesDao {
     @Query("SELECT id, title, imageUrl FROM game ORDER BY title")
     fun readAll(): Flow<List<Game>>
 }

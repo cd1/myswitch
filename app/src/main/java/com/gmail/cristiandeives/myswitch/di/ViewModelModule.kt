@@ -1,8 +1,8 @@
 package com.gmail.cristiandeives.myswitch.di
 
 import android.content.Context
-import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchDao
-import com.gmail.cristiandeives.myswitch.common.data.GameDao
+import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchesDao
+import com.gmail.cristiandeives.myswitch.common.data.GamesDao
 import com.gmail.cristiandeives.myswitch.common.data.MySwitchDatabase
 import com.gmail.cristiandeives.myswitch.common.data.network.IgdbService
 import com.gmail.cristiandeives.myswitch.common.data.network.TwitchService
@@ -28,12 +28,12 @@ object ViewModelModule {
     fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    fun provideGameDao(database: MySwitchDatabase): GameDao =
-        database.gameDao()
+    fun provideGamesDao(database: MySwitchDatabase): GamesDao =
+        database.gamesDao()
 
     @Provides
-    fun provideRecentGameSearchDao(database: MySwitchDatabase): RecentGameSearchDao =
-        database.recentGameSearchDao()
+    fun provideRecentGameSearchesDao(database: MySwitchDatabase): RecentGameSearchesDao =
+        database.recentGameSearchesDao()
 
     @IgdbRetrofit
     @Provides

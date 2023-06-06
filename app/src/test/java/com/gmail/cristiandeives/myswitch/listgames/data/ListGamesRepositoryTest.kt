@@ -1,7 +1,7 @@
 package com.gmail.cristiandeives.myswitch.listgames.data
 
 import com.gmail.cristiandeives.myswitch.common.data.Game
-import com.gmail.cristiandeives.myswitch.common.data.GameDao
+import com.gmail.cristiandeives.myswitch.common.data.GamesDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.first
@@ -19,7 +19,7 @@ import org.mockito.kotlin.whenever
 @ExperimentalCoroutinesApi
 class ListGamesRepositoryTest {
     @Mock
-    private lateinit var gameDao: GameDao
+    private lateinit var gamesDao: GamesDao
 
     private lateinit var repository: ListGamesRepository
     private lateinit var mockitoAnnotations: AutoCloseable
@@ -27,7 +27,7 @@ class ListGamesRepositoryTest {
     @Before
     fun setup() {
         mockitoAnnotations = MockitoAnnotations.openMocks(this)
-        repository = ListGamesRepository(gameDao)
+        repository = ListGamesRepository(gamesDao)
     }
 
     @After
@@ -37,11 +37,11 @@ class ListGamesRepositoryTest {
 
     @Test
     fun getGames_defaultCall_daoIsCalled() {
-        whenever(gameDao.readAll()).thenReturn(emptyFlow())
+        whenever(gamesDao.readAll()).thenReturn(emptyFlow())
 
         repository.getGames()
 
-        verify(gameDao).readAll()
+        verify(gamesDao).readAll()
     }
 
     @Test
@@ -58,7 +58,7 @@ class ListGamesRepositoryTest {
     }
 
     private fun mockGameDaoReadAll(games: List<Game>) {
-        whenever(gameDao.readAll())
+        whenever(gamesDao.readAll())
             .thenReturn(flowOf(games))
     }
 }

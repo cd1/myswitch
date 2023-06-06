@@ -6,7 +6,7 @@ import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface RecentGameSearchDao {
+interface RecentGameSearchesDao {
     @Upsert
     suspend fun upsert(recentGameSearch: RecentGameSearch)
 
