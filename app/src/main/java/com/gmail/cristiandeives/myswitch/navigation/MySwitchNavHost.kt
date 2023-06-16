@@ -40,12 +40,34 @@ fun MySwitchNavHost(
         composable(
             route = NavRoute.AddGame.route,
             enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.Start) },
+            popEnterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.End) },
             popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
         ) {
             AddGameScreen(
                 viewModel = hiltViewModel(),
                 onNavigationBackClick = {
                     navController.popBackStack()
+                },
+                navigateToAddGameDetails = { gameId ->
+                    navController.navigate(NavRoute.AddGameDetails.routeWithArguments(gameId))
+                },
+            )
+        }
+
+        composable(
+            route = NavRoute.AddGameDetails.route,
+            arguments = NavRoute.AddGameDetails.arguments,
+            enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+            popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
+        ) {
+            AddGameDetailsScreen(
+                viewModel = hiltViewModel(),
+                onNavigationBackClick = {
+                    navController.popBackStack()
+                },
+                navigateAfterSuccess = {
+                    navController.popBackStack(NavRoute.ListGames.route, inclusive = false)
                 },
             )
         }

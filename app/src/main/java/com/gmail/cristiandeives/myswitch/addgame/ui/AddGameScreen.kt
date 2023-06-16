@@ -64,6 +64,7 @@ fun AddGameScreen(
 fun AddGameScreen(
     viewModel: AddGameViewModel,
     onNavigationBackClick: () -> Unit,
+    navigateToAddGameDetails: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -76,7 +77,7 @@ fun AddGameScreen(
         onRecentGameSearchClick = viewModel::onRecentGameSearchClick,
         onRecentGameSearchRemoveClick = viewModel::onRecentGameSearchRemoveClick,
         onSearch = viewModel::onSearch,
-        onSearchResultClick = viewModel::onSearchResultSelect,
+        onSearchResultClick = navigateToAddGameDetails,
         modifier = modifier,
     )
 }

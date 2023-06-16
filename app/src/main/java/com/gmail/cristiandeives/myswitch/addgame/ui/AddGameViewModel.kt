@@ -105,10 +105,6 @@ class AddGameViewModel @Inject constructor(
         }
     }
 
-    fun onSearchResultSelect(gameId: Long) {
-
-    }
-
     companion object {
         private const val UI_STATE_KEY = "uiState"
         private const val SEARCH_QUERY_MAX_LENGTH = 16
