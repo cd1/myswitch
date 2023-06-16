@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gmail.cristiandeives.myswitch.addgame.ui.AddGameDetailsScreen
 import com.gmail.cristiandeives.myswitch.addgame.ui.AddGameScreen
 import com.gmail.cristiandeives.myswitch.listgames.ui.ListGamesScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -40,12 +41,51 @@ fun MySwitchNavHost(
         composable(
             route = NavRoute.AddGame.route,
             enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+            exitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.Start) },
+            popEnterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.End) },
             popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
         ) {
             AddGameScreen(
                 viewModel = hiltViewModel(),
-                onNavigationBackClick = {
+                navigateBack = {
                     navController.popBackStack()
+                },
+                navigateToAddGameDetails = { gameId ->
+                    navController.navigate(NavRoute.AddGameDetails.routeWithArguments(gameId))
+                },
+            )
+        }
+
+        composable(
+            route = NavRoute.AddGameDetails.route,
+            arguments = NavRoute.AddGameDetails.arguments,
+            enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+            popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
+        ) {
+            AddGameDetailsScreen(
+                viewModel = hiltViewModel(),
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                navigateBackAfterSuccess = {
+                    navController.popBackStack(NavRoute.ListGames.route, inclusive = false)
+                },
+            )
+        }
+
+        composable(
+            route = NavRoute.AddGameDetails.route,
+            arguments = NavRoute.AddGameDetails.arguments,
+            enterTransition = { slideIntoContainer(AnimatedContentScope.SlideDirection.Start) },
+            popExitTransition = { slideOutOfContainer(AnimatedContentScope.SlideDirection.End) },
+        ) {
+            AddGameDetailsScreen(
+                viewModel = hiltViewModel(),
+                navigateBack = {
+                    navController.popBackStack()
+                },
+                navigateBackAfterSuccess = {
+                    navController.popBackStack(NavRoute.ListGames.route, inclusive = false)
                 },
             )
         }

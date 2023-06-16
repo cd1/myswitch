@@ -27,6 +27,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.gmail.cristiandeives.myswitch.HiltTestActivity" />
+
         <profileable
             android:shell="true"
             tools:targetApi="29" />

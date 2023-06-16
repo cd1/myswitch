@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gmail.cristiandeives.myswitch.R
+import com.gmail.cristiandeives.myswitch.common.ui.ObserveLifecycle
 import com.gmail.cristiandeives.myswitch.common.ui.theme.MySwitchTheme
 
 @ExperimentalMaterial3Api
@@ -63,20 +64,23 @@ fun AddGameScreen(
 @Composable
 fun AddGameScreen(
     viewModel: AddGameViewModel,
-    onNavigationBackClick: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToAddGameDetails: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    ObserveLifecycle(viewModel)
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     AddGameScreen(
         uiState = uiState,
-        onNavigationBackClick = onNavigationBackClick,
+        onNavigationBackClick = navigateBack,
         onSearchQueryChange = viewModel::onSearchQueryChange,
         onSearchBarActiveChange = viewModel::onSearchBarActiveChange,
         onRecentGameSearchClick = viewModel::onRecentGameSearchClick,
         onRecentGameSearchRemoveClick = viewModel::onRecentGameSearchRemoveClick,
         onSearch = viewModel::onSearch,
-        onSearchResultClick = viewModel::onSearchResultSelect,
+        onSearchResultClick = navigateToAddGameDetails,
         modifier = modifier,
     )
 }

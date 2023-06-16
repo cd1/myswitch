@@ -2,6 +2,8 @@ package com.gmail.cristiandeives.myswitch.addgame.ui
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
+import com.gmail.cristiandeives.myswitch.addgame.data.SimpleRecentGameSearch
+import com.gmail.cristiandeives.myswitch.common.data.Game
 import kotlinx.parcelize.Parcelize
 
 @Immutable
@@ -15,7 +17,7 @@ data class AddGameUiState(
 // Immutable?
 sealed interface SearchBarState : Parcelable {
     @Parcelize
-    object Inactive : SearchBarState
+    data object Inactive : SearchBarState
 
     @Parcelize
     data class Active(
@@ -33,7 +35,7 @@ data class RecentGameSearchUiState(
 // Immutable?
 sealed interface SearchResultState : Parcelable {
     @Parcelize
-    object Loading : SearchResultState
+    data object Loading : SearchResultState
 
     @Parcelize
     data class Data(
@@ -41,13 +43,24 @@ sealed interface SearchResultState : Parcelable {
     ) : SearchResultState
 
     @Parcelize
-    object Error : SearchResultState
+    data object Error : SearchResultState
 }
 
 @Immutable
 @Parcelize
 data class GameUiState(
     val id: Long,
-    val name: String,
-    val imageUrl: String?,
+    val title: String,
+    val coverUrl: String?,
 ) : Parcelable
+
+fun SimpleRecentGameSearch.toUi() = RecentGameSearchUiState(
+    id = this.id,
+    query = this.query,
+)
+
+fun Game.toAddGameUi() = GameUiState(
+    id = this.id,
+    title = this.name,
+    coverUrl = this.coverUrl,
+)

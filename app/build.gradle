@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias libs.plugins.android.application
     alias libs.plugins.kotlin.android
@@ -20,7 +22,7 @@ android {
         versionCode 1
         versionName '0.1'
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'com.gmail.cristiandeives.myswitch.HiltTestRunner'
         vectorDrawables {
             useSupportLibrary true
         }
@@ -103,16 +105,22 @@ dependencies {
     kapt libs.hilt.compiler
     ksp libs.androidx.room.compiler
 
+    testImplementation libs.androidx.lifecycle.runtime.testing
     testImplementation libs.junit
     testImplementation libs.kotlinx.coroutines.test
     testImplementation libs.mockito.core
     testImplementation libs.mockito.kotlin
+    testImplementation libs.truth
+    testImplementation libs.turbine
 
     androidTestImplementation libs.androidx.test.espresso.core
     androidTestImplementation libs.androidx.test.ext.junit
+    androidTestImplementation libs.hilt.android.testing
 
     androidTestImplementation(composeBom)
     androidTestImplementation libs.androidx.compose.ui.test.junit4
+
+    kaptAndroidTest libs.hilt.android.compiler
 
     debugImplementation libs.androidx.compose.ui.test.manifest
     debugImplementation libs.androidx.compose.ui.tooling
@@ -133,5 +141,11 @@ protobuf {
                 }
             }
         }
+    }
+}
+
+tasks.withType(KotlinCompile).all {
+    kotlinOptions {
+        languageVersion = '1.9'
     }
 }

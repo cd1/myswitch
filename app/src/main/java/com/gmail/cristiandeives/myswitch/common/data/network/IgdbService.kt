@@ -14,4 +14,19 @@ interface IgdbService {
         @Header("Authorization") authorization: String,
         @Body body: String,
     ): Response<List<GamesResponse>>
+
+    companion object {
+        // Hardcoded value from IGDB.
+        //
+        // Ideally, we should query this value from the API
+        // (e.g. searching for the platform "Switch") and save the ID into a preference,
+        // but maybe this never changes anyway.
+        const val PlatformSwitch = 130
+
+        fun clientIdHeader(): String =
+            TwitchService.CLIENT_ID
+
+        fun authorizationHeader(accessToken: String): String =
+            "Bearer $accessToken"
+    }
 }

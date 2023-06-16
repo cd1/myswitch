@@ -82,7 +82,7 @@ private fun GameItem(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(game.imageUrl)
+                .data(game.coverUrl)
                 .crossfade(true)
                 .placeholder(R.drawable.ic_downloading)
                 .error(R.drawable.ic_broken_image)
@@ -96,7 +96,7 @@ private fun GameItem(
         )
 
         Text(
-            text = game.title,
+            text = game.name,
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp, end = 16.dp),
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,

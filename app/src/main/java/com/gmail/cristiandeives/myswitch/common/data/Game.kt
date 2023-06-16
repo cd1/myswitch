@@ -1,13 +1,18 @@
 package com.gmail.cristiandeives.myswitch.common.data
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.gmail.cristiandeives.myswitch.addgame.data.GameMediaType
+import com.gmail.cristiandeives.myswitch.common.data.db.GameEntity
 
-@Entity
 data class Game(
-    @PrimaryKey
-    val id: Long,
+    val id: Long = 0,
+    val coverUrl: String?,
+    val name: String,
+    val mediaType: GameMediaType?,
+)
 
-    val title: String,
-    val imageUrl: String?,
+fun GameEntity.toData() = Game(
+    id = this.id,
+    coverUrl = this.coverUrl,
+    name = this.name,
+    mediaType = this.mediaType,
 )

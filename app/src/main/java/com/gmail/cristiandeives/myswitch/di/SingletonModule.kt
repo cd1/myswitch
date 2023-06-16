@@ -2,7 +2,7 @@ package com.gmail.cristiandeives.myswitch.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gmail.cristiandeives.myswitch.common.data.MySwitchDatabase
+import com.gmail.cristiandeives.myswitch.common.data.db.MySwitchDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

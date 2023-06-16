@@ -25,7 +25,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.gmail.cristiandeives.myswitch.R
-import com.gmail.cristiandeives.myswitch.common.ui.CommonErrorContent
+import com.gmail.cristiandeives.myswitch.common.ui.CommonErrorMessage
+import com.gmail.cristiandeives.myswitch.common.ui.CommonLoadingIndicator
+import com.gmail.cristiandeives.myswitch.common.ui.ObserveLifecycle
 import com.gmail.cristiandeives.myswitch.common.ui.theme.MySwitchTheme
 
 @VisibleForTesting const val ListGamesLoadingContentTestTag = "ListGamesLoadingContent"
@@ -51,7 +53,7 @@ fun ListGamesScreen(
 
         when (uiState) {
             ListGamesUiState.Loading -> {
-                ListGamesLoadingContent(
+                CommonLoadingIndicator(
                     modifier = commonModifier
                         .wrapContentSize(Alignment.Center)
                         .testTag(ListGamesLoadingContentTestTag),
@@ -66,7 +68,7 @@ fun ListGamesScreen(
                 )
             }
             ListGamesUiState.Error -> {
-                CommonErrorContent(
+                CommonErrorMessage(
                     text = stringResource(R.string.list_games_error),
                     modifier = commonModifier
                         .padding(16.dp)
@@ -84,6 +86,8 @@ fun ListGamesScreen(
     navigateToAddGame: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    ObserveLifecycle(viewModel)
+
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     ListGamesScreen(

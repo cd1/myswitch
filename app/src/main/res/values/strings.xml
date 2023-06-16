@@ -3,11 +3,12 @@
     <string name="app_name">My Switch</string>
 
     <string name="navigate_back_content_description">Go back to the previous screen</string>
+    <string name="loading">Loading…</string>
 
     <!-- List games -->
     <string name="list_games_title">My games</string>
     <string name="list_games_empty_message">You haven\'t added any games yet.</string>
-    <string name="list_games_error">There was an error when trying to read your games. Try again later. It may work. Or not.</string>
+    <string name="list_games_error">There was an error when trying to read your games. Try again later.</string>
     <string name="add_game_content_description">Add a new game</string>
 
     <!-- Add game -->
@@ -17,5 +18,15 @@
     <string name="add_game_remove_search_query_content_description">Remove this search query from the history</string>
     <string name="add_game_searching">Searching…</string>
     <string name="add_game_search_no_games_found">No games found when searching for \'%s\'.</string>
-    <string name="add_game_search_error">There was an error when trying to search for games. Try again later. It may work. Or not.</string>
+    <string name="add_game_search_error">There was an error when trying to search for games. Try again later.</string>
+
+    <!-- Add game details -->
+    <string name="add_game_details_title">Add game details</string>
+    <string name="add_game_details_load_error">There was an error when trying to read more details about the selected game. Try again later.</string>
+    <string name="add_game_details_no_summary_available">No description available.</string>
+    <string name="add_game_details_media_type_label">Media type:</string>
+    <string name="add_game_details_media_type_physical">Physical</string>
+    <string name="add_game_details_media_type_digital">Digital</string>
+    <string name="add_game_details_button">Add game to library</string>
+    <string name="add_game_details_add_error">Failed to add the game. Try again later.</string>
 </resources>

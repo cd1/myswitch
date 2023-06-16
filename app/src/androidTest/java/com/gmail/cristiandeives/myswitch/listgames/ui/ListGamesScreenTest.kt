@@ -41,20 +41,20 @@ class ListGamesScreenTest {
     @Test
     fun data_someGames_gameDataIsDisplayed() {
         val games = List(3) { i ->
-            GameUiState(title = "Game #$i", imageUrl = "http://www.example.test/$i")
+            GameUiState(name = "Game #$i", coverUrl = "http://www.example.test/$i")
         }
 
         launchScreen(ListGamesUiState.Data(games))
 
         for ((index, game) in games.withIndex()) {
-            robot.assertGameTitleIs(game.title, index)
+            robot.assertGameTitleIs(game.name, index)
         }
     }
 
     @Test
     fun data_manyGames_gameListIsScrollable() {
         val games = List(100) { i ->
-            GameUiState(title = "Game #$i", imageUrl = "http://www.example.test/$i")
+            GameUiState(name = "Game #$i", coverUrl = "http://www.example.test/$i")
         }
 
         launchScreen(ListGamesUiState.Data(games))

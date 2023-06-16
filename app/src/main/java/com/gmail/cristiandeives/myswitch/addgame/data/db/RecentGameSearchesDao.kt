@@ -8,15 +8,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RecentGameSearchesDao {
     @Upsert
-    suspend fun upsert(recentGameSearch: RecentGameSearch)
+    suspend fun upsert(recentGameSearch: RecentGameSearchEntity)
 
-    @Query("SELECT id, `query` FROM RecentGameSearch ORDER BY lastUpdated DESC LIMIT 10")
+    @Query("SELECT id, `query` FROM recentGameSearch ORDER BY lastUpdated DESC LIMIT 10")
     fun readAll(): Flow<List<SimpleRecentGameSearch>>
 
-    @Query("SELECT id FROM RecentGameSearch WHERE `query` = :query")
+    @Query("SELECT id FROM recentGameSearch WHERE `query` = :query")
     suspend fun readIdByQuery(query: String): Long?
 
-    @Query("DELETE FROM RecentGameSearch WHERE id = :id")
+    @Query("DELETE FROM recentGameSearch WHERE id = :id")
     suspend fun deleteById(id: Long)
 }
 

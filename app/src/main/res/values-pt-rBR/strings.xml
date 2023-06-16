@@ -3,11 +3,12 @@
     <string name="app_name">My Switch</string>
 
     <string name="navigate_back_content_description">Voltar para a tela anterior</string>
+    <string name="loading">Carregando…</string>
 
     <!-- List games -->
     <string name="list_games_title">Meus jogos</string>
     <string name="list_games_empty_message">Você não adicionou nenhum jogo ainda.</string>
-    <string name="list_games_error">Deu um erro na hora de ler os seus jogos. Tente de novo mais tarde. Pode dar certo. Ou não.</string>
+    <string name="list_games_error">Deu um erro na hora de ler os seus jogos. Tente de novo mais tarde.</string>
     <string name="add_game_content_description">Adicionar novo jogo</string>
 
     <!-- Add game -->
@@ -17,5 +18,15 @@
     <string name="add_game_remove_search_query_content_description">Remover esse texto de pesquisa do histórico</string>
     <string name="add_game_searching">Pesquisando…</string>
     <string name="add_game_search_no_games_found">Nenhum jogo encontrado ao pesquisar por \'%s\'.</string>
-    <string name="add_game_search_error">Deu um erro na hora de pesquisar os jogos. Tente de novo mais tarde. Pode dar certo. Ou não.</string>
+    <string name="add_game_search_error">Deu um erro na hora de pesquisar os jogos. Tente de novo mais tarde.</string>
+
+    <!-- Add game details -->
+    <string name="add_game_details_title">Adicionar detalhes do jogo</string>
+    <string name="add_game_details_load_error">Deu um erro na hora de ler mais detalhes sobre o jogo selecionado. Tente de novo mais tarde.</string>
+    <string name="add_game_details_no_summary_available">Nenhuma descricao disponível.</string>
+    <string name="add_game_details_media_type_label">Tipo da mídia:</string>
+    <string name="add_game_details_media_type_physical">Física</string>
+    <string name="add_game_details_media_type_digital">Digital</string>
+    <string name="add_game_details_button">Adicionar jogo à biblioteca</string>
+    <string name="add_game_details_add_error">Erro ao adicionar o jogo. Tente de novo mais tarde.</string>
 </resources>

@@ -13,7 +13,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.gmail.cristiandeives.myswitch.R
 
-class ListGamesScreenRobot(private val rule: AndroidComposeTestRule<*, ComponentActivity>) {
+class ListGamesScreenRobot(private val rule: AndroidComposeTestRule<*, out ComponentActivity>) {
     private val context: Context
         get() = rule.activity.applicationContext
 

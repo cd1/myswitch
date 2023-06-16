@@ -2,11 +2,12 @@ package com.gmail.cristiandeives.myswitch.listgames.ui
 
 import android.os.Parcelable
 import androidx.compose.runtime.Immutable
+import com.gmail.cristiandeives.myswitch.common.data.Game
 import kotlinx.parcelize.Parcelize
 
 sealed interface ListGamesUiState : Parcelable {
     @Parcelize
-    object Loading : ListGamesUiState
+    data object Loading : ListGamesUiState
 
     @Immutable
     @Parcelize
@@ -15,12 +16,17 @@ sealed interface ListGamesUiState : Parcelable {
     ) : ListGamesUiState
 
     @Parcelize
-    object Error : ListGamesUiState
+    data object Error : ListGamesUiState
 }
 
 @Immutable
 @Parcelize
 data class GameUiState(
-    val title: String,
-    val imageUrl: String?,
+    val name: String,
+    val coverUrl: String?,
 ) : Parcelable
+
+fun Game.toListGamesUi() = GameUiState(
+    name = this.name,
+    coverUrl = this.coverUrl,
+)

@@ -1,18 +1,23 @@
 package com.gmail.cristiandeives.myswitch.listgames.ui
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.testing.TestLifecycleOwner
+import com.gmail.cristiandeives.myswitch.MainDispatcherRule
+import com.gmail.cristiandeives.myswitch.addgame.data.GameMediaType
 import com.gmail.cristiandeives.myswitch.common.data.Game
-import com.gmail.cristiandeives.myswitch.listgames.data.ListGamesRepository
-import com.gmail.cristiandeives.myswitch.listgames.ui.ListGamesViewModel.Companion.toUiState
+import com.gmail.cristiandeives.myswitch.common.data.GamesRepository
+import com.gmail.cristiandeives.myswitch.common.data.log.FakeLogger
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -20,25 +25,36 @@ import org.mockito.kotlin.whenever
 
 @ExperimentalCoroutinesApi
 class ListGamesViewModelTest {
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
     @Mock
-    private lateinit var repository: ListGamesRepository
+    private lateinit var repository: GamesRepository
 
     private lateinit var mockitoAnnotations: AutoCloseable
+    private lateinit var lifecycleOwner: TestLifecycleOwner
+    private lateinit var viewModel: ListGamesViewModel
 
     @Before
     fun setup() {
         mockitoAnnotations = MockitoAnnotations.openMocks(this)
+
+        lifecycleOwner = TestLifecycleOwner(Lifecycle.State.INITIALIZED)
+        viewModel = ListGamesViewModel(repository, SavedStateHandle(), FakeLogger())
+        lifecycleOwner.lifecycle.addObserver(viewModel)
     }
 
     @After
     fun tearDown() {
         mockitoAnnotations.close()
+
+        lifecycleOwner.lifecycle.removeObserver(viewModel)
     }
 
     @Test
     fun onInitialState_initialStateIsLoading() {
         mockRepoGetGames()
-        val viewModel = createViewModel()
+        moveViewModelToOnCreate()
 
         viewModel.uiState.value.assertIsLoading()
     }
@@ -46,23 +62,26 @@ class ListGamesViewModelTest {
     @Test
     fun onRepositoryData_uiStateHasData() {
         val games = List(3) { i ->
-            Game(id = i.toLong(), title = "Game $i", imageUrl = "http://www.example.test/$i")
+            Game(
+                id = i.toLong(),
+                coverUrl = "http://www.example.test/$i",
+                name = "Game $i",
+                mediaType = GameMediaType.Digital,
+            )
         }
         mockRepoGetGames(games)
-
-        val viewModel = createViewModel()
+        moveViewModelToOnCreate()
 
         with(viewModel.uiState.value) {
             assertIsData()
-            assertGamesIs(games.map { it.toUiState() })
+            assertGamesIs(games.map { it.toListGamesUi() })
         }
     }
 
     @Test
     fun onRepositoryThrowsErrorDirectly_uiStateHasError() {
         mockRepoGetGamesError()
-
-        val viewModel = createViewModel()
+        moveViewModelToOnCreate()
 
         viewModel.uiState.value.assertIsError()
     }
@@ -70,10 +89,13 @@ class ListGamesViewModelTest {
     @Test
     fun onRepositoryThrowsErrorInside_uiStateHasError() {
         mockRepoGetGamesErrorInside()
-
-        val viewModel = createViewModel()
+        moveViewModelToOnCreate()
 
         viewModel.uiState.value.assertIsError()
+    }
+
+    private fun moveViewModelToOnCreate() {
+        lifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     private fun mockRepoGetGames(games: List<Game>? = null) {
@@ -92,9 +114,6 @@ class ListGamesViewModelTest {
         whenever(repository.getGames())
             .thenReturn(callbackFlow { throw RuntimeException("oops") })
     }
-
-    private fun createViewModel() =
-        ListGamesViewModel(SavedStateHandle(), repository, UnconfinedTestDispatcher())
 
     private fun ListGamesUiState.assertIsLoading() {
         assertTrue(

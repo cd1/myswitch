@@ -1,5 +1,6 @@
 package com.gmail.cristiandeives.myswitch.addgame.ui
 
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,7 +15,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -35,8 +36,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.gmail.cristiandeives.myswitch.R
-import com.gmail.cristiandeives.myswitch.common.ui.CommonErrorContent
+import com.gmail.cristiandeives.myswitch.common.ui.CommonErrorMessage
+import com.gmail.cristiandeives.myswitch.common.ui.CommonLoadingIndicator
 import com.gmail.cristiandeives.myswitch.common.ui.theme.MySwitchTheme
+
+@VisibleForTesting const val AddGameContentSearchBarTestTag = "AddGameContentSearchBar"
+@VisibleForTesting const val AddGameContentRecentGameSearchTestTag = "AddGameContentRecentGameSearch"
+@VisibleForTesting const val AddGameContentSearchResultLoadingTestTag = "AddGameContentSearchResultLoading"
+@VisibleForTesting const val AddGameContentSearchResultTestTag = "AddGameContentSearchResult"
 
 @ExperimentalMaterial3Api
 @Composable
@@ -84,7 +91,8 @@ fun AddGameContent(
             },
             modifier = Modifier
                 .padding(16.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag(AddGameContentSearchBarTestTag),
         ) {
             if (searchBarState is SearchBarState.Active) {
                 for (gameSearch in searchBarState.recentGameSearches) {
@@ -92,7 +100,9 @@ fun AddGameContent(
                         query = gameSearch.query,
                         onClick = { onRecentGameSearchClick(gameSearch.query) },
                         onRemoveClick = { onRecentGameSearchRemoveClick(gameSearch.id) },
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag(AddGameContentRecentGameSearchTestTag),
                     )
                 }
             }
@@ -107,11 +117,9 @@ fun AddGameContent(
                             .fillMaxSize()
                             .wrapContentSize(),
                     ) {
-                        CircularProgressIndicator()
-
-                        Text(
+                        CommonLoadingIndicator(
                             text = stringResource(R.string.add_game_searching),
-                            modifier = Modifier.padding(top = 8.dp),
+                            modifier = Modifier.testTag(AddGameContentSearchResultLoadingTestTag),
                         )
                     }
                 }
@@ -124,10 +132,12 @@ fun AddGameContent(
                                 key = { it.id },
                             ) { searchResult ->
                                 SearchResultItem(
-                                    gameName = searchResult.name,
-                                    gameCoverUrl = searchResult.imageUrl,
+                                    gameTitle = searchResult.title,
+                                    gameCoverUrl = searchResult.coverUrl,
                                     onClick = { onSearchResultClick(searchResult.id) },
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .testTag(AddGameContentSearchResultTestTag),
                                 )
                             }
                         }
@@ -143,7 +153,7 @@ fun AddGameContent(
                 }
 
                 SearchResultState.Error -> {
-                    CommonErrorContent(
+                    CommonErrorMessage(
                         text = stringResource(R.string.add_game_search_error),
                         modifier = Modifier
                             .fillMaxSize()
@@ -196,7 +206,7 @@ fun RecentGameSearchItem(
 
 @Composable
 private fun SearchResultItem(
-    gameName: String,
+    gameTitle: String,
     gameCoverUrl: String?,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -223,7 +233,7 @@ private fun SearchResultItem(
         )
 
         Text(
-            text = gameName,
+            text = gameTitle,
             overflow = TextOverflow.Ellipsis,
             maxLines = 2,
         )

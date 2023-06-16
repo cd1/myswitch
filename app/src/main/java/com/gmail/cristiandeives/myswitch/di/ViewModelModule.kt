@@ -2,8 +2,10 @@ package com.gmail.cristiandeives.myswitch.di
 
 import android.content.Context
 import com.gmail.cristiandeives.myswitch.addgame.data.db.RecentGameSearchesDao
-import com.gmail.cristiandeives.myswitch.common.data.GamesDao
-import com.gmail.cristiandeives.myswitch.common.data.MySwitchDatabase
+import com.gmail.cristiandeives.myswitch.common.data.db.GamesDao
+import com.gmail.cristiandeives.myswitch.common.data.db.MySwitchDatabase
+import com.gmail.cristiandeives.myswitch.common.data.log.AndroidLogger
+import com.gmail.cristiandeives.myswitch.common.data.log.Logger
 import com.gmail.cristiandeives.myswitch.common.data.network.IgdbService
 import com.gmail.cristiandeives.myswitch.common.data.network.TwitchService
 import com.gmail.cristiandeives.myswitch.common.data.preferences.accessTokenDataStore
@@ -26,6 +28,9 @@ import javax.inject.Qualifier
 object ViewModelModule {
     @Provides
     fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
+
+    @Provides
+    fun provideLogger(): Logger = AndroidLogger()
 
     @Provides
     fun provideGamesDao(database: MySwitchDatabase): GamesDao =
