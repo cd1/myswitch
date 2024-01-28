@@ -1,41 +1,40 @@
 [versions]
-accompanist = '0.30.1'
-android_application = '8.0.1'
-android_test = '8.0.1'
-android_tools_desugar_jdk = '2.0.3'
-androidx_activity_compose = '1.7.1'
+accompanist = '0.34.0'
+android_application = '8.3.1'
+android_test = '8.2.2'
+android_tools_desugar_jdk = '2.0.4'
+androidx_activity_compose = '1.8.2'
 androidx_appcompat = '1.6.1'
-androidx_benchmark_macro_junit4 = '1.1.1'
-androidx_compose_bom = '2023.06.01'
-androidx_core_ktx = '1.10.0'
+androidx_benchmark_macro_junit4 = '1.2.3'
+androidx_compose_bom = '2024.03.00'
+androidx_core_ktx = '1.12.0'
 androidx_datastore = '1.0.0'
-androidx_hilt_navigation_compose = '1.0.0'
-androidx_lifecycle = '2.6.2'
-androidx_navigation_compose = '2.5.3'
-androidx_room = '2.5.1'
+androidx_hilt_navigation_compose = '1.2.0'
+androidx_lifecycle = '2.7.0'
+androidx_navigation_compose = '2.7.7'
+androidx_room = '2.6.1'
 androidx_profileinstaller = '1.3.1'
 androidx_test_espresso = '3.5.1'
 androidx_test_ext_junit = '1.1.5'
-androidx_test_uiautomator = '2.2.0'
-arrow = '1.2.0-RC'
-coil = '2.3.0'
-hilt = '2.50'
-junit = '4.13.2'
-kotlin = '1.8.20' # When this version is updated, also update "kotlinCompilerExtensionVersion"
-kotlinx_coroutines_test = '1.6.4'
-kotlinx_serialization = '1.5.1'
-ksp = '1.8.20-1.0.11'
-material = '1.8.0'
-mockito_core = '5.3.1'
-mockito_kotlin = '4.1.0'
-protobuf_javalite = '3.23.0'
+androidx_test_uiautomator = '2.3.0'
+arrow = '1.2.1'
+coil = '2.6.0'
+hilt = '2.51.1'
+junit = '5.10.1'
+kotlin = '1.9.23' # When this version is updated, also update "kotlinCompilerExtensionVersion"
+kotlinx_coroutines_test = '1.7.3'
+kotlinx_serialization = '1.6.3'
+ksp = '1.9.23-1.0.19'
+material = '1.11.0'
+mockito_core = '5.11.0'
+mockito_kotlin = '5.2.1'
+protobuf_javalite = '3.23.4'
 retrofit = '2.9.0'
 retrofit_converter_kotlinx_serialization = '1.0.0'
-truth = '1.1.4'
-turbine = '1.0.0'
+truth = '1.4.2'
+turbine = '1.1.0'
 
 [libraries]
-accompanist_navigation_animation = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist_systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 android_tools_desugar_jdk = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "android_tools_desugar_jdk" }
 androidx_activity_compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidx_activity_compose" }
@@ -70,7 +69,7 @@ hilt_android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt_android_compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt_android_testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt_compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
-junit = { group = "junit", name = "junit", version.ref = "junit" }
+junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
 kotlinx_coroutines_test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinx_coroutines_test" }
 kotlinx_serialization_json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }

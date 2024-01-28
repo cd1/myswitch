@@ -60,7 +60,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.6'
+        kotlinCompilerExtensionVersion '1.5.11'
     }
 
     packagingOptions {
@@ -74,7 +74,6 @@ dependencies {
     def composeBom = platform(libs.androidx.compose.bom)
     implementation(composeBom)
 
-    implementation libs.accompanist.navigation.animation
     implementation libs.accompanist.systemuicontroller
     implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
