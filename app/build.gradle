@@ -144,7 +144,7 @@ protobuf {
     }
 }
 
-tasks.withType(KotlinCompile).all {
+tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         languageVersion = '1.9'
     }

@@ -1,7 +1,6 @@
 package com.gmail.cristiandeives.myswitch.listgames.ui
 
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.testing.TestLifecycleOwner
 import com.gmail.cristiandeives.myswitch.MainDispatcherRule
