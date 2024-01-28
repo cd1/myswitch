@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.gmail.cristiandeives.myswitch.benchmark"
-    compileSdk = 33
+    compileSdk = 34
 
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
